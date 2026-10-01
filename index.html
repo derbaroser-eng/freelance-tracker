@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>freelance-tracker — Lightweight CRM for freelancers</title>
+<meta name="description" content="Track clients, projects, invoices, and follow-ups. Local SQLite, no cloud, no subscription. CLI tool.">
+<style>
+  :root{--bg:#0b0d10;--panel:#12161c;--line:#1e2530;--ink:#e8edf4;--dim:#8b97a8;--accent:#4ade80;--warn:#fbbf24;--radius:14px}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Inter,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+  header{padding:72px 0 40px;border-bottom:1px solid var(--line)}
+  h1{font-size:clamp(2.1rem,6vw,3.4rem);line-height:1.08;margin:0 0 14px;letter-spacing:-.02em;font-weight:650}
+  h1 .dot{color:var(--accent)}
+  .tag{font-size:clamp(1rem,2.4vw,1.25rem);color:var(--dim);margin:0;max-width:56ch}
+  h2{font-size:1.05rem;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin:56px 0 20px;font-weight:600}
+  p{margin:0 0 16px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:#1a212b;padding:2px 6px;border-radius:5px}
+  .principle{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:var(--radius);padding:20px 24px;margin:0 0 16px}
+  .principle p:last-child{margin:0}
+  .principle strong{color:var(--accent);font-weight:600}
+  .grid{display:grid;gap:14px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px}
+  .card h3{margin:0 0 6px;font-size:1.05rem;font-weight:600}
+  .card p{margin:0;color:var(--dim);font-size:.95rem}
+  .status{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;border:1px solid var(--line);border-radius:999px;padding:4px 12px;color:var(--dim);margin:0 0 26px}
+  .status .led{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  pre{background:#0f1319;border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;overflow-x:auto;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86rem;line-height:1.7;margin:0 0 16px;color:#cbd5e1}
+  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#0b0d10;font-weight:600;padding:14px 28px;border-radius:999px;text-decoration:none;font-size:1rem;margin:24px 0}
+  footer{padding:44px 0 72px;border-top:1px solid var(--line);color:var(--dim);font-size:.9rem}
+  a{color:var(--accent)}
+  @media (prefers-color-scheme: light){
+    :root{--bg:#fbfcfd;--panel:#fff;--line:#e3e8ef;--ink:#10151c;--dim:#5c6775}
+    pre{background:#f4f6f9;color:#2b3440}
+    code{background:#eef1f5}
+  }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>freelance-tracker<span class="dot">.</span></h1>
+  <p class="tag">Track clients, projects, invoices, and follow-ups. Local SQLite. No cloud. No subscription. CLI tool.</p>
+  <div class="status"><span class="led"></span>Live - EUR29 one-time</div>
+  <a class="cta" href="https://buy.stripe.com/9B69AWb2a5c416pcGc4ko0r">Buy now - EUR29</a>
+</div></header>
+
+<div class="wrap">
+
+  <h2>The problem</h2>
+  <div class="principle">
+    <p><strong>Freelancers juggle clients, projects, and invoices across spreadsheets, sticky notes, and memory.</strong></p>
+    <p>Enterprise CRMs are overbuilt. They require setup, training, and a monthly subscription. Freelancers need something that works in 30 seconds.</p>
+  </div>
+  <div class="principle">
+    <p><strong>Existing tools are either too simple or too complex.</strong></p>
+    <p>Spreadsheets have no structure. Full CRMs have a learning curve. There is a gap for a lightweight CLI tool that just tracks what matters.</p>
+  </div>
+
+  <h2>What it does</h2>
+  <p>A CLI tool with local SQLite storage. Track:</p>
+  <div class="grid">
+    <div class="card"><h3>clients</h3><p>Name, email, hourly rate.</p></div>
+    <div class="card"><h3>projects</h3><p>Client, name, status (active, completed, cancelled).</p></div>
+    <div class="card"><h3>invoices</h3><p>Amount, due date, status (unpaid, paid, overdue).</p></div>
+  </div>
+
+  <h2>How it works</h2>
+  <pre>$ python tracker.py add-client --name "Acme Corp" --email "billing@acme.com" --rate 75
+{"id": 1, "name": "Acme Corp", "email": "billing@acme.com", "rate": 75.0}
+
+$ python tracker.py add-invoice --client "Acme Corp" --amount 1500 --due 2026-02-01
+{"id": 1, "amount": 1500.0, "status": "unpaid", "due_date": "2026-02-01"}
+
+$ python tracker.py mark-paid --invoice-id 1
+{"id": 1, "status": "paid"}</pre>
+  <p>Local SQLite database. No cloud. No subscription. No data leaves your machine.</p>
+
+  <h2>Why CLI</h2>
+  <div class="principle">
+    <p><strong>A CLI tool is the fastest interface for a freelancer who lives in the terminal.</strong></p>
+    <p>No browser tabs. No loading screens. No sync issues. Just type a command and get a result.</p>
+  </div>
+
+  <h2 id="buy">Buy</h2>
+  <p>EUR29 one-time. Runs locally. No subscription, no cloud, no data collection.</p>
+  <a class="cta" href="https://buy.stripe.com/9B69AWb2a5c416pcGc4ko0r">Buy now - EUR29</a>
+
+</div>
+
+<footer><div class="wrap">
+  <p>freelance-tracker</p>
+</div></footer>
+</body>
+</html>
